@@ -1,0 +1,138 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAKS 5
+
+void insertion(int *, int);
+void selection(int *, int);
+char menu();
+void tampil(int []);
+
+int main()
+{
+    int mode;
+    char answer;
+    do
+    {
+        int data[] = {5, 4, 3, 2, 1};
+        printf("Array asal\n");
+        tampil(data);
+        printf("\nMenu Sorting\n");
+        printf("1. Insertion\n");
+        printf("2. Selection\n");
+        printf("3. Exit\n");
+        printf("Pilihan Anda: ");
+        scanf("%c", &answer);
+        fflush(stdin);
+
+        switch(answer)
+        {
+        case '1' :
+            mode = menu();
+            insertion(&data, mode);
+            break;
+        case '2' :
+            mode = menu();
+            selection(&data, mode);
+            break;
+        case '3' :
+            printf("\n===TERIMAKASIH===");
+            exit(0);
+            break;
+        default  :
+            printf("\nPilihan tidak tersedia, silahkan pilih menu yang ada!\n");
+            printf("============================================================\n\n");
+            break;
+        }
+    }while(1);
+}
+
+char menu()
+{
+    char answer;
+    printf("\nMode Urut Sorting");
+    printf("\n1. Ascending");
+    printf("\n2. Descending");
+    printf("\nMasukkan pilihan Anda:");
+    scanf("%c", &answer);
+    fflush(stdin);
+    return answer;
+}
+void tampil(int x[])
+{
+    int i;
+
+    for(i=0; i<MAKS; i++)
+        printf("%d ", x[i]);
+    puts("");
+}
+
+void insertion(int data[], int mode)
+{
+    for(int i=1; i<MAKS; i++)
+    {
+        for(int j=i; j>0 && data[j]<data[j-1]; j--)
+        {
+            int temp=data[j-1];
+            data[j-1]=data[j];
+            data[j]=temp;
+        }
+    }
+    printf("\nSetelah Array diurutkan:\n");
+    if(mode=='1')
+    {
+        for(int i=0; i<MAKS; i++)
+        {
+            printf("%d ", data[i]);
+        }
+    }
+    else if(mode=='2')
+    {
+        for(int i=MAKS-1; i>=0; i--)
+        {
+            printf("%d ", data[i]);
+        }
+    }
+    puts("");
+    puts("\n==========================================================\n");
+}
+
+void selection(int data[], int mode)
+{
+    int i, j, min;
+
+    for(i=0; i<MAKS-1; i++)
+    {
+        min = i;
+        j=i+1;
+        while(j<MAKS)
+        {
+            if(data[j] < data[min])
+                min = j;
+            j++;
+        }
+        int temp=data[i];
+        data[i]=data[min];
+        data[min]=temp;
+        //tampil(x);
+    }
+
+    printf("\nSetelah diurutkan: ");
+    if(mode=='1')
+    {
+        for(int i=0; i<MAKS; i++)
+        {
+            printf("%d ", data[i]);
+        }
+    }
+    else if(mode=='2')
+    {
+        for(int i=MAKS-1; i>=0; i--)
+        {
+            printf("%d ", data[i]);
+        }
+    }
+    puts("");
+    puts("\n==========================================================\n");
+}
+
+
