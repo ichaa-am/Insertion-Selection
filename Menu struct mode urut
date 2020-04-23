@@ -1,0 +1,176 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAKS 10
+
+typedef struct
+{
+    int no;
+    char nama[40];
+    float nilai;
+}siswa;
+
+int n;
+
+void insertion(siswa *, siswa);
+void selection(siswa *, siswa);
+char menu();
+void input(siswa []);
+void tampil(siswa []);
+
+int main()
+{
+    char answer;
+    siswa data[MAKS], mode;
+    printf("SORTING INSERTION DATA STRUCT\n");
+    do
+    {
+    printf("Menu Sorting\n");
+    printf("1. Insertion\n");
+    printf("2. Selection\n");
+    printf("3. Exit\n");
+    printf("Pilihan Anda: ");
+    scanf("%c", &answer);
+    fflush(stdin);
+
+        switch(answer)
+        {
+        case '1' :
+            input(data);
+            printf("Data sebelum diurutkan");
+            tampil(data);
+            mode = menu();
+            insertion(&data, mode);
+            break;
+        case '2' :
+            input(data);
+            printf("Data sebelum diurutkan");
+            tampil(data);
+            mode = menu();
+            selection(&data, mode);
+            break;
+        case '3' :
+            printf("\n===TERIMAKASIH===");
+            exit(0);
+            break;
+        default  :
+            printf("\nPilihan tidak tersedia, silahkan pilih menu yang ada!\n");
+            printf("============================================================\n\n");
+            break;
+        }
+    }while(1);
+    return 0;
+}
+
+char menu()
+{
+    char answer;
+    printf("\nMode Urut Sorting");
+    printf("\n1. Ascending");
+    printf("\n2. Descending");
+    printf("\nMasukkan pilihan Anda:");
+    scanf("%c", &answer);
+    fflush(stdin);
+    return answer;
+}
+
+void input(siswa x[])
+{
+    int i;
+    printf("Jumlah siswa (Max.10):");
+    scanf("%d", &n);
+    for(i=0; i<n; i++)
+    {
+        printf("Mahasiswa ke-%d\n", i+1);
+        printf("Nomor:");
+        scanf("%d", &x[i].no);
+        fflush(stdin);
+        printf("Nama:");
+        scanf("%s", &x[i].nama);
+        fflush(stdin);
+        printf("Nilai:");
+        scanf("%f", &x[i].nilai);
+        fflush(stdin);
+        printf("\n");
+    }
+    puts("");
+}
+
+void tampil(siswa x[])
+{
+    int i;
+    printf("\nNo\tNama\tNilai");
+    for(i=0; i<n; i++)
+        printf("\n%d\t%s\t%0.2f", x[i].no, x[i].nama, x[i].nilai);
+    puts("");
+}
+
+void insertion(siswa x[], siswa mode)
+{
+    for(int i=1; i<n; i++)
+    {
+        for(int j=i; j>0 && x[j].no<x[j-1].no; j--)
+        {
+            int temp=x[j-1].no;
+            x[j-1].no=x[j].no;
+            x[j].no=temp;
+        }
+    }
+    printf("\nSetelah Array diurutkan:\n");
+    if(mode=='1')
+    {
+        for(int i=0; i<n; i++)
+        {
+            printf("%d ", x[i]);
+        }
+    }
+    else if(mode=='2')
+    {
+        for(int i=n-1; i>=0; i--)
+        {
+            printf("%d ", x[i]);
+        }
+    }
+    puts("");
+    puts("\n==========================================================\n");
+}
+
+void selection(siswa x[], siswa mode)
+{
+    int i, j, min;
+
+    for(i=0; i<n-1; i++)
+    {
+        min = i;
+        j=i+1;
+        while(j<n)
+        {
+            if(x[j].no < x[min].no)
+                min = j;
+            j++;
+        }
+        int temp=x[i].no;
+        x[i].no=x[min].no;
+        x[min].no=temp;
+        //tampil(x);
+    }
+
+    printf("\nSetelah diurutkan: ");
+    if(mode=='1')
+    {
+        for(int i=0; i<n; i++)
+        {
+            printf("%d ", x[i]);
+        }
+    }
+    else if(mode=='2')
+    {
+        for(int i=n-1; i>=0; i--)
+        {
+            printf("%d ", x[i]);
+        }
+    }
+    puts("");
+    puts("\n==========================================================\n");
+}
+
+
