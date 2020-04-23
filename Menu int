@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAKS 5
+
+void insertion(int []);
+void selection(int []);
+void tukar(int *, int *);
+void tampil (int []);
+void menu();
+
+int main()
+{
+    char answer;
+    do
+    {
+        int data[] = {5, 4, 3, 2, 1};
+        printf("Array asal\n");
+        tampil(data);
+        printf("\nMenu Sorting\n");
+        printf("1. Insertion\n");
+        printf("2. Selection\n");
+        printf("3. Exit\n");
+        printf("Pilihan Anda: ");
+        scanf("%c", &answer);
+        fflush(stdin);
+
+        switch(answer)
+        {
+        case '1' :
+            insertion(data);
+            printf("\nArray setelah diurutkan:\n");
+            tampil(data);
+            printf("============================================================\n\n");
+            break;
+        case '2' :
+            selection(data);
+            printf("\nArray setelah diurutkan:\n");
+            tampil(data);
+            printf("============================================================\n\n");
+            break;
+        case '3' :
+            printf("\n===TERIMAKASIH===");
+            exit(0);
+            break;
+        default  :
+            printf("\nPilihan tidak tersedia, silahkan pilih menu yang ada!\n");
+            printf("============================================================\n\n");
+            break;
+        }
+    }while(1);
+}
+void tampil(int x[])
+{
+    int i;
+
+    for(i=0; i<MAKS; i++)
+        printf("%d ", x[i]);
+    puts("");
+}
+
+void insertion(int x[])
+{
+    int i, j, key;
+
+    for(i=1; i<MAKS; i++)
+    {
+        key=x[i];
+        j=i-1;
+        while(j>=0 && x[j]>key)
+        {
+            x[j+1] = x[j];
+            j--;
+        }
+        x[j+1] = key;
+    }
+}
+
+void selection(int x[])
+{
+    int i, j, min;
+
+    for(i=0; i<MAKS-1; i++)
+    {
+        min = i;
+        j=i+1;
+        while(j<MAKS)
+        {
+            if(x[j] < x[min])
+                min = j;
+            j++;
+        }
+        tukar(&x[min], &x[i]);
+        //tampil(x);
+    }
+}
+
+void tukar(int *x, int *y)
+{
+    int z;
+
+    z=*x;
+    *x=*y;
+    *y=z;
+}
+
