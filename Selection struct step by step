@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAKS 10
+
+typedef struct
+{
+    int no;
+    char nama[40];
+    float nilai;
+}siswa;
+
+int n;
+
+void insertion(siswa []);
+void tampil (siswa []);
+void input(siswa []);
+
+int main()
+{
+    siswa data[MAKS];
+    printf("SORTING SELECTION DATA STRUCT\n");
+    input(data);
+    printf("Data sebelum diurutkan");
+    tampil(data);
+    printf("\nStep by step");
+    selection(data);
+    return 0;
+}
+
+void input(siswa x[])
+{
+    int i;
+    printf("Jumlah siswa (Max.10):");
+    scanf("%d", &n);
+    for(i=0; i<n; i++)
+    {
+        printf("Mahasiswa ke-%d\n", i+1);
+        printf("Nomor:");
+        scanf("%d", &x[i].no);
+        fflush(stdin);
+        printf("Nama:");
+        scanf("%s", &x[i].nama);
+        fflush(stdin);
+        printf("Nilai:");
+        scanf("%f", &x[i].nilai);
+        fflush(stdin);
+        printf("\n");
+    }
+    puts("");
+}
+
+void tampil(siswa x[])
+{
+    int i;
+    printf("\nNo\tNama\tNilai");
+    for(i=0; i<n; i++)
+        printf("\n%d\t%s\t%0.2f", x[i].no, x[i].nama, x[i].nilai);
+    puts("");
+}
+
+void selection(siswa x[])
+{
+    int i, j, min;
+    int temp;
+
+    for(i=0; i<n-1; i++)
+    {
+        min = i;
+        j=i+1;
+        while(j<n)
+        {
+            if(x[j].no < x[min].no)
+                min = j;
+            j++;
+        }
+        temp=x[i].no;
+        x[i].no=x[min].no;
+        x[min].no=temp;
+        tampil(x);
+    }
+}
