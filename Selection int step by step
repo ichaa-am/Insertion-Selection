@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAKS 5
+
+void selection(int []);
+void tampil (int []);
+void tukar(int *, int *);
+
+int main()
+{
+    int A[] = {5, 4, 3, 2, 1};
+
+    printf("Sebelum diurutkan : ");
+    tampil(A);
+    printf("Step by step pengurutannya\n");
+    selection(A);
+    //tampil(A);
+    return 0;
+}
+
+void tampil(int x[])
+{
+    int i;
+
+    for(i=0; i<MAKS; i++)
+        printf("%d ", x[i]);
+    puts("");
+}
+
+void selection(int x[])
+{
+    int i, j, min;
+
+    for(i=0;i<MAKS-1;i++)
+    {
+        min = i;
+        j=i+1;
+        while(j<MAKS)
+        {
+            if(x[j] < x[min])
+               min = j;
+            j++;
+        }
+        tukar(&x[min], &x[i]);
+        tampil(x);
+    }
+}
+
+void tukar(int *x, int *y)
+{
+    int z;
+
+    z=*x;
+    *x=*y;
+    *y=z;
+}
